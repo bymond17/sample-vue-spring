@@ -1,5 +1,5 @@
 # Base image
-FROM eclipse-temurin:17-jdk-alpine as builder
+FROM eclipse-temurin:17-jdk-alpine AS builder
 
 # 필요한 패키지 설치
 RUN apk add --no-cache curl tar bash
