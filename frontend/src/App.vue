@@ -1,21 +1,21 @@
 <template>
     <div id="app">
         <header>
-            <h1>Welcome to Your Vue.js App</h1>
+            <h1>Spring Boot + Vue.js 연동 테스트</h1>
         </header>
         <main>
-            <p>This is a basic example of a Vue.js application.</p>
+            <HelloWorld />
         </main>
     </div>
 </template>
 
 <script>
+import HelloWorld from './components/HelloWorld.vue'
+
 export default {
     name: 'App',
-    data() {
-        return {
-            message: 'Hello Vue!'
-        };
+    components: {
+        HelloWorld
     }
 };
 </script>
@@ -32,9 +32,6 @@ header {
     background-color: #42b983;
     padding: 20px;
     color: white;
-}
-
-main {
-    margin: 20px;
+    margin-bottom: 20px;
 }
 </style>
