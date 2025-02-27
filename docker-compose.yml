@@ -23,7 +23,19 @@ services:
       - maven-repo:/root/.m2
     depends_on:
       - frontend
+  db:
+    image: postgres:13
+    container_name: postgres_db
+    environment:
+      - POSTGRES_DB=sampledb
+      - POSTGRES_USER=sampleuser
+      - POSTGRES_PASSWORD=samplepass
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
 
 volumes:
   node_modules:
   maven-repo:
+  db-data:
