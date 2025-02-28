@@ -1,5 +1,5 @@
 # Build stage
-FROM eclipse-temurin:17-jdk AS build
+FROM eclipse-temurin:17-jdk-jammy AS build
 WORKDIR /app
 
 # Copy Maven wrapper and pom.xml
@@ -14,7 +14,7 @@ RUN chmod +x ./mvnw
 RUN ./mvnw clean package -DskipTests
 
 # Run stage
-FROM eclipse-temurin:17-jdk
+FROM eclipse-temurin:17-jdk-jammy
 WORKDIR /app
 
 # Copy JAR from build stage

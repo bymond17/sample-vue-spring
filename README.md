@@ -72,14 +72,13 @@ docker-compose down
 - 전역 예외 처리 추가
 - Swagger/OpenAPI 문서화 추가
 
-### 2. 데이터베이스 연동
-- PostgreSQL 컨테이너 추가
-- 데이터베이스 연결 상태 체크 API 구현
-- 데이터베이스 비밀번호 보안 강화 (Docker Secrets 사용)
+### 2. 프론트엔드 코드 개선
+- 비동기 처리 방식 개선 (then-catch → try-catch)
+- 조건문 로직 개선 (삼항 연산자 → if-else)
 
-### 3. 프론트엤드 개선
-- 데이터베이스 연결 상태 확인 UI 추가
-- API 응답 처리 로직 개선
+### 3. Docker 설정 개선
+- JDK 이미지를 eclipse-temurin:17-jdk-jammy로 변경
+- 크로스 플랫폼 호환성 강화 (Mac M1/M2 지원)
 
 ## API 문서
 
