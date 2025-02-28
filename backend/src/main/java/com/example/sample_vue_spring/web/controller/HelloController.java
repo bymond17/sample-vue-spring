@@ -1,4 +1,4 @@
-package com.example.sample_vue_spring.controller;
+package com.example.sample_vue_spring.web.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

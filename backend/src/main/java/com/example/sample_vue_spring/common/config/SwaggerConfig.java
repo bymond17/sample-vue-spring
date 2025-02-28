@@ -1,4 +1,4 @@
-package com.example.sample_vue_spring.config;
+package com.example.sample_vue_spring.common.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

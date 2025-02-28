@@ -35,8 +35,6 @@ services:
     environment:
       - JAVA_OPTS=-Xmx512m -Xms256m
     depends_on:
-      frontend:
-        condition: service_started
       db:
         condition: service_healthy
     networks:

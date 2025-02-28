@@ -1,4 +1,4 @@
-package com.example.sample_vue_spring.config;
+package com.example.sample_vue_spring.common.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

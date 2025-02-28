@@ -1,4 +1,4 @@
-package com.example.sample_vue_spring.controller;
+package com.example.sample_vue_spring.web.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import com.example.sample_vue_spring.service.DatabaseService;
-import com.example.sample_vue_spring.dto.ApiResponse;
+import com.example.sample_vue_spring.web.response.dto.ApiResponse;
 
 @RestController
 @RequestMapping("/api")
@@ -22,8 +22,7 @@ public class DbCheckController {
 
     private final DatabaseService databaseService;
 
-    @Operation(summary = "DB 연결 확인", 
-              description = "데이터베이스 연결 상태와 버전 정보를 확인합니다.")
+    @Operation(summary = "DB 연결 확인", description = "데이터베이스 연결 상태와 버전 정보를 확인합니다.")
     @GetMapping("/db-check")
     public ApiResponse<Map<String, Object>> checkDatabaseConnection() {
         try {

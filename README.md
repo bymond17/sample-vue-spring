@@ -9,6 +9,28 @@
 .
 ├── frontend/               # Vue.js 프론트엔드
 ├── backend/               # Spring Boot 백엔드
+│   └── src/main/java/com/example/sample_vue_spring/
+│       ├── common/        # 공통 모듈
+│       │   ├── config/    # 설정 클래스
+│       │   │   ├── SwaggerConfig.java
+│       │   │   └── WebConfig.java
+│       │   └── exception/ # 예외 처리
+│       │       └── GlobalExceptionHandler.java
+│       ├── domain/        # 도메인 모델
+│       │   └── entity/    # JPA 엔티티
+│       │       └── BaseTimeEntity.java
+│       ├── infrastructure/# 인프라스트럭처
+│       │   └── database/  # DB 설정
+│       │       └── DatabaseConfig.java
+│       ├── service/       # 비즈니스 로직
+│       │   └── DatabaseService.java
+│       └── web/           # 웹 계층
+│           ├── controller/# 컨트롤러
+│           │   ├── HelloController.java
+│           │   └── DbCheckController.java
+│           └── dto/       # DTO 클래스
+│               └── response/
+│                   └── ApiResponse.java
 ├── docker-compose.yml    # Docker 컴포즈 설정
 └── db_password.txt       # DB 비밀번호 파일
 ```
@@ -67,16 +89,19 @@ docker-compose down
 ## 최근 업데이트 내용
 
 ### 1. 백엔드 구조 개선
+- 패키지 구조 최적화 (계층형 구조 도입)
+  - common: 공통 모듈 (설정, 예외처리)
+  - domain: 도메인 모델과 엔티티
+  - infrastructure: DB 설정
+  - service: 비즈니스 로직
+  - web: 컨트롤러와 DTO
 - Controller와 Service 계층 분리
 - API 응답 형식 표준화 (ApiResponse 도입)
 - 전역 예외 처리 추가
 - Swagger/OpenAPI 문서화 추가
 
-### 2. 프론트엔드 코드 개선
-- 비동기 처리 방식 개선 (then-catch → try-catch)
-- 조건문 로직 개선 (삼항 연산자 → if-else)
-
-### 3. Docker 설정 개선
+### 2. Docker 설정 개선
+- 서비스 의존성 최적화 (불필요한 의존성 제거)
 - JDK 이미지를 eclipse-temurin:17-jdk-jammy로 변경
 - 크로스 플랫폼 호환성 강화 (Mac M1/M2 지원)
 
