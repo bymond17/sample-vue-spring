@@ -46,6 +46,10 @@ docker-compose down
 - Backend: http://localhost:8080
 - Database: localhost:5432
 
+### 4. PostgreSQL 보안 설정
+- 문제: "trust" 인증 방식 사용 경고
+- 해결: SCRAM-SHA-256 인증 방식으로 변경
+
 ## 주요 문제 해결 사항
 
 ### 1. CORS 설정
@@ -66,6 +70,7 @@ docker-compose down
 - Controller와 Service 계층 분리
 - API 응답 형식 표준화 (ApiResponse 도입)
 - 전역 예외 처리 추가
+- Swagger/OpenAPI 문서화 추가
 
 ### 2. 데이터베이스 연동
 - PostgreSQL 컨테이너 추가
@@ -76,10 +81,28 @@ docker-compose down
 - 데이터베이스 연결 상태 확인 UI 추가
 - API 응답 처리 로직 개선
 
+## API 문서
+
+### Swagger UI
+- 접속 주소: http://localhost:8080/swagger-ui.html
+- API 그룹:
+  - Database: 데이터베이스 연결 체크 API
+  - Hello: Hello API
+
+### OpenAPI 문서
+- JSON 형식: http://localhost:8080/api-docs
+
+### API 문서화 특징
+- 각 API의 상세 설명 제공
+- 요청/응답 형식 자동 생성
+- API 테스트 기능 제공
+- 그룹별 API 분류
+
 ## 개발 시 주의사항
 1. JDK 버전은 eclipse-temurin:17-jdk 사용 (크로스 플랫폼 호환성)
 2. 데이터베이스 접속 정보는 application.yml 확인
 3. 프론트엔드 개발 시 핫 리로드 지원
+4. PostgreSQL 인증 방식: SCRAM-SHA-256 사용
 
 ## 향후 개선 계획
 1. 프론트엔드 컴포넌트 구조 개선

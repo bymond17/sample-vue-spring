@@ -1,5 +1,7 @@
 package com.example.sample_vue_spring.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,10 +17,13 @@ import com.example.sample_vue_spring.dto.ApiResponse;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
+@Tag(name = "Database", description = "데이터베이스 연결 체크 API")
 public class DbCheckController {
 
     private final DatabaseService databaseService;
 
+    @Operation(summary = "DB 연결 확인", 
+              description = "데이터베이스 연결 상태와 버전 정보를 확인합니다.")
     @GetMapping("/db-check")
     public ApiResponse<Map<String, Object>> checkDatabaseConnection() {
         try {

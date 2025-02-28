@@ -2,6 +2,7 @@ package com.example.sample_vue_spring.exception;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import com.example.sample_vue_spring.dto.ApiResponse;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {

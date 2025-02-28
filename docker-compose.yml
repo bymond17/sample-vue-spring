@@ -56,6 +56,8 @@ services:
       - POSTGRES_DB=sampledb
       - POSTGRES_USER=sampleuser
       - POSTGRES_PASSWORD_FILE=/run/secrets/db_password
+      - POSTGRES_HOST_AUTH_METHOD=scram-sha-256
+      - POSTGRES_INITDB_ARGS=--auth-host=scram-sha-256
     ports:
       - "5432:5432"
     volumes:
