@@ -4,51 +4,85 @@
 
 이 프로젝트는 Vue.js 프론트엔드와 Spring Boot 백엔드를 통합한 예제 프로젝트입니다.
 
+## 프로젝트 구조
+```
+.
+├── frontend/               # Vue.js 프론트엔드
+├── backend/               # Spring Boot 백엔드
+├── docker-compose.yml    # Docker 컴포즈 설정
+└── db_password.txt       # DB 비밀번호 파일
+```
+
+## 기술 스택
+- Frontend: Vue.js
+- Backend: Spring Boot 2.6.3
+- Database: PostgreSQL 13
+- Build Tool: Maven
+- Container: Docker
+
 ## 설정 및 실행 방법
 
-### 프론트엔드 (Vue.js)
+### 1. 환경 설정
+```bash
+# DB 비밀번호 파일 생성
+echo "your_password" > db_password.txt
+```
 
-1. `frontend` 디렉토리로 이동:
-   ```sh
-   cd frontend
-   ```
+### 2. Docker 실행
+```bash
+# 전체 서비스 실행
+docker-compose up --build
 
-2. Docker Compose를 사용하여 프론트엔드 서버 실행:
-    ```sh
-    docker-compose up --build
-    ```
+# 특정 서비스만 실행
+docker-compose up --build frontend
+docker-compose up --build backend
 
-### 백엔드 (Spring Boot)
+# 서비스 중지
+docker-compose down
+```
 
-1. 프로젝트 루트 디렉토리에서 Spring Boot 애플리케이션 실행:
-    ```sh
-    ./mvnw spring-boot:run
-    ```
+### 3. 접속 정보
+- Frontend: http://localhost:3000
+- Backend: http://localhost:8080
+- Database: localhost:5432
 
-### Docker 사용 방법
+## 주요 문제 해결 사항
 
-1. Docker Compose를 사용하여 전체 애플리케이션 실행:
-    ```sh
-    docker-compose up --build
-    ```
+### 1. CORS 설정
+- 문제: 프론트엔드에서 백엔드 API 호출 시 CORS 오류
+- 해결: WebConfig에서 전역 CORS 설정 적용
 
-2. Docker Compose를 사용하여 특정 서비스만 실행:
-    ```sh
-    docker-compose up --build frontend
-    docker-compose up --build backend
-    ```
+### 2. Docker 볼륨 설정
+- 문제: 백엔드 빌드 결과물이 볼륨 마운트로 덮어씌워지는 현상
+- 해결: 소스 코드 마운트 제거 및 멀티 스테이지 빌드 적용
 
-3. Docker Compose를 사용하여 서비스 중지:
-    ```sh
-    docker-compose down
-    ```
+### 3. node_modules 관리
+- Docker 컨테이너 내에서 node_modules를 관리하여 호스트와 컨테이너 간의 파일 시스템 차이로 인한 문제 방지
+- 볼륨을 사용하여 의존성 관리 최적화
 
-### 주요 기능
+## 최근 업데이트 내용
 
-- Vue.js를 사용한 프론트엔드 개발
-- Spring Boot를 사용한 백엔드 개발
-- Docker를 사용한 컨테이너화된 개발 환경
+### 1. 백엔드 구조 개선
+- Controller와 Service 계층 분리
+- API 응답 형식 표준화 (ApiResponse 도입)
+- 전역 예외 처리 추가
 
-### node_modules를 볼륨에 추가한 이유
+### 2. 데이터베이스 연동
+- PostgreSQL 컨테이너 추가
+- 데이터베이스 연결 상태 체크 API 구현
+- 데이터베이스 비밀번호 보안 강화 (Docker Secrets 사용)
 
-- Docker 컨테이너 내에서 node_modules를 관리하여, 호스트와 컨테이너 간의 파일 시스템 차이로 인한 문제를 방지 (참고: [TOAST UI 블로그](https://ui.toast.com/weekly-pick/ko_20160823))
+### 3. 프론트엤드 개선
+- 데이터베이스 연결 상태 확인 UI 추가
+- API 응답 처리 로직 개선
+
+## 개발 시 주의사항
+1. JDK 버전은 eclipse-temurin:17-jdk 사용 (크로스 플랫폼 호환성)
+2. 데이터베이스 접속 정보는 application.yml 확인
+3. 프론트엔드 개발 시 핫 리로드 지원
+
+## 향후 개선 계획
+1. 프론트엔드 컴포넌트 구조 개선
+2. 백엔드 테스트 코드 작성
+3. 보안 설정 강화
+4. 로깅 시스템 구축
