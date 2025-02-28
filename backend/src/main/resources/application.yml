@@ -1,0 +1,17 @@
+spring:
+  web:
+    cors:
+      allowed-origins: "http://localhost:3000"
+      allowed-methods: "*"
+      allowed-headers: "*"
+  datasource:
+    url: jdbc:postgresql://db:5432/sampledb
+    username: sampleuser
+    password: samplepass
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect

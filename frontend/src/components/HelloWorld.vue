@@ -2,6 +2,8 @@
     <div class="hello">
         <p>{{ message }}</p>
         <button @click="fetchHello">서버에서 메시지 가져오기</button>
+        <p>{{ dbStatus }}</p>
+        <button @click="checkDatabase">데이터베이스 연결 확인</button>
     </div>
 </template>
 
@@ -12,7 +14,8 @@ export default {
     name: 'HelloWorld',
     data() {
         return {
-            message: '버튼을 클릭하여 서버에서 메시지를 가져오세요.'
+            message: '버튼을 클릭하여 서버에서 메시지를 가져오세요.',
+            dbStatus: ''
         };
     },
     methods: {
@@ -25,6 +28,17 @@ export default {
                     console.error('Error:', error);
                     this.message = '서버 연결 오류가 발생했습니다.';
                 });
+        },
+        async checkDatabase() {
+            try {
+                const response = await axios.get('http://localhost:8080/api/db-check');
+                this.dbStatus = response.data.status === 'success' 
+                    ? `DB 연결 성공: ${response.data.version}` 
+                    : `DB 연결 실패: ${response.data.message}`;
+            } catch (error) {
+                this.dbStatus = '서버 연결 오류가 발생했습니다.';
+                console.error('Error:', error);
+            }
         }
     }
 };
