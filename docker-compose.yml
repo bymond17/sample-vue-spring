@@ -34,6 +34,7 @@ services:
       - maven-repo:/root/.m2
     environment:
       - JAVA_OPTS=-Xmx512m -Xms256m
+      - MAVEN_OPTS=-Dmaven.repo.local=/root/.m2/repository
     depends_on:
       db:
         condition: service_healthy

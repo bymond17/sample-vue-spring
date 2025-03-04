@@ -2,6 +2,10 @@
 FROM eclipse-temurin:17-jdk-jammy AS build
 WORKDIR /app
 
+# 환경 변수 설정
+ENV JAVA_OPTS="-Xmx512m -Xms256m"
+ENV MAVEN_OPTS="-Dmaven.repo.local=/root/.m2/repository"
+
 # Copy Maven wrapper and pom.xml
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./

@@ -12,5 +12,6 @@ export default defineConfig({
     },
     optimizeDeps: {
         include: ['vue']
-    }
+    },
+    minify: 'terser'
 });
