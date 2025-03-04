@@ -1,4 +1,4 @@
-package com.example.sample_vue_spring.web.response.dto;
+package com.example.sample_vue_spring.web.dto.response;
 
 import lombok.Builder;
 import lombok.Data;

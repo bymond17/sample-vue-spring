@@ -1,18 +1,25 @@
 import { createRouter, createWebHistory } from 'vue-router';
-    import Home from '../pages/Home.vue';
+import Home from '../pages/Home.vue';
 
-    const routes = [
+const router = createRouter({
+    history: createWebHistory(),
+    routes: [
         {
             path: '/',
-            name: 'Home',
+            name: 'home',
             component: Home
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: () => import('../components/user/UserRegister.vue')
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: () => import('../components/user/UserLogin.vue')
         }
-    ];
-
-    // VITE_API_URL은 API 기본 주소로 사용해야 하므로, 라우터의 base URL에서는 제거
-    const router = createRouter({
-        history: createWebHistory(),  // base URL 제거
-        routes
-    });
+    ]
+})
 
     export default router;

@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import com.example.sample_vue_spring.service.DatabaseService;
-import com.example.sample_vue_spring.web.response.dto.ApiResponse;
+import com.example.sample_vue_spring.web.dto.response.ApiResponse;
 
 @RestController
 @RequestMapping("/api")
