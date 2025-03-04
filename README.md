@@ -4,19 +4,17 @@
 Vue.js 프론트엔드와 Spring Boot 백엔드를 Docker로 통합한 예제 프로젝트입니다. 이 프로젝트는 PostgreSQL을 데이터베이스로 사용하며, Docker를 통해 손쉽게 배포 및 실행할 수 있습니다.
 
 ## 기술 스택
-- **프론트엔드**: Vue.js
-- **백엔드**: Spring Boot 2.6.3
+- **프론트엔드**: Vue.js, Vite, Axios
+- **백엔드**: Spring Boot
 - **데이터베이스**: PostgreSQL 13
-- **빌드 도구**: Maven
-- **컨테이너**: Docker
+- **빌드 도구**: Maven, npm
+- **컨테이너**: Docker, Docker Compose
 
 ## 시작하기
 
 ### 사전 요구사항
 - Docker
 - Docker Compose
-- Node.js (개발 시)
-- JDK 17 (개발 시)
 
 ### 설치 및 실행
 ```bash
@@ -40,6 +38,11 @@ docker-compose up --build
 ```
 .
 ├── frontend/                # Vue.js 프론트엔드
+│   ├── src/
+│   │   ├── components/     # Vue 컴포넌트
+│   │   ├── services/       # API 서비스 모듈
+│   │   └── App.vue         # 루트 컴포넌트
+│   └── vite.config.js      # Vite 설정
 ├── backend/                # Spring Boot 백엔드
 │   └── src/
 │       └── main/
