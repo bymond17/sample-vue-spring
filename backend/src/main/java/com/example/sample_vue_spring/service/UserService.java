@@ -6,48 +6,71 @@ import com.example.sample_vue_spring.web.dto.UserDto;
 import com.example.sample_vue_spring.web.dto.UserLoginDto;
 import com.example.sample_vue_spring.web.dto.UserRegistrationDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public UserDto register(UserRegistrationDto userRegistrationDto) {
-        if (userRepository.existsByEmail(userRegistrationDto.getEmail())) {
+    public UserDto register(@Valid UserRegistrationDto registrationDto) {
+        validateNewUser(registrationDto);
+        User user = createUser(registrationDto);
+        log.info("새로운 사용자 등록: {}", registrationDto.getEmail());
+        return convertToDto(userRepository.save(user));
+    }
+
+    public UserDto login(@Valid UserLoginDto loginDto) {
+        User user = findUserByEmail(loginDto.getEmail());
+        validatePassword(loginDto.getPassword(), user.getPassword());
+        log.info("사용자 로그인 성공: {}", loginDto.getEmail());
+        return convertToDto(user);
+    }
+
+    private void validateNewUser(UserRegistrationDto dto) {
+        if (userRepository.existsByEmail(dto.getEmail())) {
+            log.warn("중복된 이메일 등록 시도: {}", dto.getEmail());
             throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
         }
-
-        User user = new User();
-        user.setEmail(userRegistrationDto.getEmail());
-        user.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
-        user.setUsername(userRegistrationDto.getUsername());
-
-        User savedUser = userRepository.save(user);
-        return convertToDto(savedUser);
     }
 
-    private UserDto convertToDto(User savedUser) {
-        UserDto userDto = new UserDto();
-        userDto.setId(savedUser.getId());
-        userDto.setEmail(savedUser.getEmail());
-        userDto.setUsername(savedUser.getUsername());
-        return userDto;
+    private User createUser(UserRegistrationDto dto) {
+        return User.builder()
+                .email(dto.getEmail())
+                .password(passwordEncoder.encode(dto.getPassword()))
+                .username(dto.getUsername())
+                .build();
     }
 
-    @Transactional(readOnly = true)
-    public UserDto login(UserLoginDto loginDto) {
-        User user = userRepository.findByEmail(loginDto.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
+    private User findUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> {
+                    log.warn("존재하지 않는 이메일로 로그인 시도: {}", email);
+                    return new IllegalArgumentException("존재하지 않는 이메일입니다.");
+                });
+    }
 
-        if (!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
+    private void validatePassword(String rawPassword, String encodedPassword) {
+        if (!passwordEncoder.matches(rawPassword, encodedPassword)) {
+            log.warn("잘못된 비밀번호 시도");
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
+    }
 
-        return convertToDto(user);
+    private UserDto convertToDto(User user) {
+        return UserDto.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .username(user.getUsername())
+                .build();
     }
 }

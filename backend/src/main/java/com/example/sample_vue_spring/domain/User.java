@@ -1,15 +1,16 @@
 package com.example.sample_vue_spring.domain;
 
 import com.example.sample_vue_spring.domain.entity.BaseTimeEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "users")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

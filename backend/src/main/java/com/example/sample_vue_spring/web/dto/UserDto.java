@@ -1,8 +1,11 @@
 package com.example.sample_vue_spring.web.dto;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class UserDto {
     private Long id;
     private String email;
