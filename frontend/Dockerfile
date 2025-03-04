@@ -16,5 +16,8 @@ COPY . .
 # Expose port
 EXPOSE 3000
 
+# 실행 시 deprecation 경고 숨김
+ENV NODE_OPTIONS="--no-deprecation"
+
 # Start the app
-CMD ["npm", "run", "serve"]
+CMD ["npm", "run", "dev"]

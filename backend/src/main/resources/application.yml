@@ -23,3 +23,13 @@ springdoc:
     path: /swagger-ui.html
     operations-sorter: method
   packages-to-scan: com.example.sample_vue_spring.controller
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      enabled: true
+      show-details: always

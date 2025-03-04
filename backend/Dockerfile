@@ -2,35 +2,29 @@
 FROM eclipse-temurin:17-jdk-jammy AS build
 WORKDIR /app
 
-# 환경 변수 설정
-ENV JAVA_OPTS="-Xmx512m -Xms256m"
-ENV MAVEN_OPTS="-Dmaven.repo.local=/root/.m2/repository"
-
-# Copy Maven wrapper and pom.xml
+# Maven 빌드 캐시를 위한 의존성 레이어
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
+RUN chmod +x ./mvnw && \
+    ./mvnw dependency:go-offline
 
-# Copy source code
+# 소스코드 빌드 레이어
 COPY src ./src
+RUN ./mvnw package -DskipTests
 
-# Build application
-RUN chmod +x ./mvnw
-RUN ./mvnw clean package -DskipTests
-
-# Run stage
-FROM eclipse-temurin:17-jdk-jammy
+# Run stage (최소화된 이미지)
+FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 
-# Copy JAR from build stage
+# 필요한 패키지만 설치
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl && \
+    rm -rf /var/lib/apt/lists/*
+
+# JAR 파일만 복사
 COPY --from=build /app/target/*.jar app.jar
 
-# Maven wrapper and dependencies
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
-RUN chmod +x ./mvnw
+# JVM 최적화 옵션
+ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -Djava.security.egd=file:/dev/urandom"
 
-# 개발 환경에서는 소스를 볼륨으로 마운트할 것이므로 COPY는 불필요
-CMD ["./mvnw", "spring-boot:run"]
-
-# Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT exec java $JAVA_OPTS -jar app.jar
