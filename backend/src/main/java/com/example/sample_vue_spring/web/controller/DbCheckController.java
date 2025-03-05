@@ -27,16 +27,9 @@ public class DbCheckController {
     public ApiResponse<Map<String, Object>> checkDatabaseConnection() {
         try {
             Map<String, Object> result = databaseService.checkConnection();
-            return ApiResponse.<Map<String, Object>>builder()
-                .status("success")
-                .data(result)
-                .build();
+            return ApiResponse.<Map<String, Object>>builder().status("success").data(result).build();
         } catch (Exception e) {
-            return ApiResponse.<Map<String, Object>>builder()
-                .status("error")
-                .message("Database connection failed")
-                .data(Map.of("error", e.getMessage()))
-                .build();
+            return ApiResponse.<Map<String, Object>>builder().status("error").message("Database connection failed").data(Map.of("error", e.getMessage())).build();
         }
     }
 }

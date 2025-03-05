@@ -26,16 +26,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .csrf(AbstractHttpConfigurer::disable)
-            .authorizeRequests(auth -> auth
-                .antMatchers("/api/hello", "/api/db-check").permitAll()
-                .antMatchers("/api/users/register", "/api/users/login").permitAll()
-                    .antMatchers("/swagger-ui/**", "/swagger-ui.html", "/api-docs/**", "/v3/api-docs/**").permitAll()
-                .anyRequest().authenticated()
-            )
-            .formLogin(AbstractHttpConfigurer::disable);
+        http.cors(cors -> cors.configurationSource(corsConfigurationSource())).csrf(AbstractHttpConfigurer::disable).authorizeRequests(auth -> auth.antMatchers("/api/hello", "/api/db-check").permitAll().antMatchers("/api/users/register", "/api/users/login").permitAll().antMatchers("/swagger-ui/**", "/swagger-ui.html", "/api-docs/**", "/v3/api-docs/**").permitAll().anyRequest().authenticated()).formLogin(AbstractHttpConfigurer::disable);
 
         return http.build();
     }

@@ -1,34 +1,46 @@
 <template>
-  <div class="login-form">
-    <h2>로그인</h2>
-    <form @submit.prevent="handleSubmit">
-      <div class="form-group">
-        <label for="email">이메일</label>
+  <div class="max-w-md mx-auto p-6 mt-10">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">로그인</h2>
+    <form @submit.prevent="handleSubmit" class="space-y-6">
+      <div class="space-y-2">
+        <label for="email" class="block text-sm font-medium text-gray-700">이메일</label>
         <input
-          type="email"
-          id="email"
-          v-model="form.email"
-          required
+            type="email"
+            id="email"
+            v-model="form.email"
+            required
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-colors"
         />
       </div>
-      <div class="form-group">
-        <label for="password">비밀번호</label>
+      <div class="space-y-2">
+        <label for="password" class="block text-sm font-medium text-gray-700">비밀번호</label>
         <input
-          type="password"
-          id="password"
-          v-model="form.password"
-          required
+            type="password"
+            id="password"
+            v-model="form.password"
+            required
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-colors"
         />
       </div>
-      <button type="submit">로그인</button>
-      <router-link to="/register" class="register-link">회원가입</router-link>
+      <button
+          type="submit"
+          class="w-full py-3 bg-emerald-500 text-white font-semibold rounded-lg hover:bg-emerald-600 transition-colors duration-300"
+      >
+        로그인
+      </button>
+      <router-link
+          to="/register"
+          class="block text-center text-gray-600 hover:text-gray-800 hover:underline transition-colors"
+      >
+        회원가입
+      </router-link>
     </form>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue'
-import { login } from '@/services/userService'
+import {ref} from 'vue'
+import {login} from '@/services/userService'
 
 export default {
   name: 'UserLogin',
@@ -55,53 +67,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.login-form {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #42b983;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
-
-button:hover {
-  background-color: #3aa876;
-}
-
-.register-link {
-  display: block;
-  text-align: center;
-  color: #2c3e50;
-  text-decoration: none;
-}
-
-.register-link:hover {
-  text-decoration: underline;
-}
-</style>

@@ -1,105 +1,43 @@
 <template>
-  <div class="register-form">
-    <h2>회원가입</h2>
-    <form @submit.prevent="handleSubmit">
-      <div class="form-group">
-        <label for="email">이메일</label>
+  <div class="max-w-md mx-auto p-6 mt-10">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">회원가입</h2>
+    <form @submit.prevent="handleSubmit" class="space-y-6">
+      <div class="space-y-2">
+        <label for="email" class="block text-sm font-medium text-gray-700">이메일</label>
         <input
-          type="email"
-          id="email"
-          v-model="form.email"
-          required
+            type="email"
+            id="email"
+            v-model="form.email"
+            required
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-colors"
         />
       </div>
-      <div class="form-group">
-        <label for="password">비밀번호</label>
+      <div class="space-y-2">
+        <label for="password" class="block text-sm font-medium text-gray-700">비밀번호</label>
         <input
-          type="password"
-          id="password"
-          v-model="form.password"
-          required
+            type="password"
+            id="password"
+            v-model="form.password"
+            required
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-colors"
         />
       </div>
-      <div class="form-group">
-        <label for="username">사용자 이름</label>
+      <div class="space-y-2">
+        <label for="username" class="block text-sm font-medium text-gray-700">사용자 이름</label>
         <input
-          type="text"
-          id="username"
-          v-model="form.username"
-          required
+            type="text"
+            id="username"
+            v-model="form.username"
+            required
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-colors"
         />
       </div>
-      <button type="submit">가입하기</button>
+      <button
+          type="submit"
+          class="w-full py-3 bg-emerald-500 text-white font-semibold rounded-lg hover:bg-emerald-600 transition-colors duration-300"
+      >
+        가입하기
+      </button>
     </form>
   </div>
 </template>
-
-<script>
-import { ref } from 'vue'
-import { register } from '@/services/userService'
-
-export default {
-  name: 'UserRegister',
-  setup() {
-    const form = ref({
-      email: '',
-      password: '',
-      username: ''
-    })
-
-    const handleSubmit = async () => {
-      try {
-        const response = await register(form.value)
-        console.log('회원가입 성공:', response)
-        // TODO: 성공 처리 (예: 로그인 페이지로 리다이렉트)
-      } catch (error) {
-        console.error('회원가입 실패:', error)
-        // TODO: 에러 처리
-      }
-    }
-
-    return {
-      form,
-      handleSubmit
-    }
-  }
-}
-</script>
-
-<style scoped>
-.register-form {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #42b983;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #3aa876;
-}
-</style>

@@ -44,19 +44,14 @@ public class UserService {
     }
 
     private User createUser(UserRegistrationDto dto) {
-        return User.builder()
-                .email(dto.getEmail())
-                .password(passwordEncoder.encode(dto.getPassword()))
-                .username(dto.getUsername())
-                .build();
+        return User.builder().email(dto.getEmail()).password(passwordEncoder.encode(dto.getPassword())).username(dto.getUsername()).build();
     }
 
     private User findUserByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> {
-                    log.warn("존재하지 않는 이메일로 로그인 시도: {}", email);
-                    return new IllegalArgumentException("존재하지 않는 이메일입니다.");
-                });
+        return userRepository.findByEmail(email).orElseThrow(() -> {
+            log.warn("존재하지 않는 이메일로 로그인 시도: {}", email);
+            return new IllegalArgumentException("존재하지 않는 이메일입니다.");
+        });
     }
 
     private void validatePassword(String rawPassword, String encodedPassword) {
@@ -67,10 +62,6 @@ public class UserService {
     }
 
     private UserDto convertToDto(User user) {
-        return UserDto.builder()
-                .id(user.getId())
-                .email(user.getEmail())
-                .username(user.getUsername())
-                .build();
+        return UserDto.builder().id(user.getId()).email(user.getEmail()).username(user.getUsername()).build();
     }
 }

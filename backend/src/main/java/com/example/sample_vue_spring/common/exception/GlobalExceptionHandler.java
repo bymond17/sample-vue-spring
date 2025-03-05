@@ -8,9 +8,6 @@ import com.example.sample_vue_spring.web.dto.response.ApiResponse;
 public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ApiResponse<Object> handleException(Exception e) {
-        return ApiResponse.builder()
-            .status("error")
-            .message(e.getMessage())
-            .build();
+        return ApiResponse.builder().status("error").message(e.getMessage()).build();
     }
 } 
